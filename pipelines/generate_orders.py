@@ -2,6 +2,7 @@ from faker import Faker
 import pandas as pd
 import random
 from pathlib import Path
+from datetime import datetime
 
 fake = Faker()
 
@@ -19,13 +20,14 @@ for i in range(100):
         ]),
         "price": random.randint(100, 3000),
         "country": fake.country(),
+        "created_at": datetime.utcnow()
     })
 
 df = pd.DataFrame(orders)
 
-output_path = Path("data/orders.csv")
+output_path = Path("data/bronze/orders.parquet")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
-df.to_csv(output_path, index=False)
+df.to_parquet(output_path, index=False)
 
-print("orders.csv created successfully")
+print("Bronze orders parquet created successfully")
