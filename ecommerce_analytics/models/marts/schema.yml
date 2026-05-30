@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: product_sales_summary
+    description: "Business-ready product sales metrics for analytics and reporting."
+    columns:
+      - name: product
+        description: "Product name."
+        tests:
+          - not_null
+          - unique
+
+      - name: total_orders
+        description: "Total number of orders per product."
+        tests:
+          - not_null
+
+      - name: total_revenue
+        description: "Total revenue per product."
+        tests:
+          - not_null
+
+      - name: average_price
+        description: "Average order price per product."
+        tests:
+          - not_null
