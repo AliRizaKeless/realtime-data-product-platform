@@ -1,0 +1,39 @@
+{
+  "dataset": "orders",
+  "description": "Contract for the orders dataset used in the data product platform.",
+  "owner": "data-engineering",
+  "version": "1.0.0",
+  "columns": [
+    {
+      "name": "order_id",
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    {
+      "name": "customer_name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "product",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "price",
+      "type": "integer",
+      "required": true
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "required": true
+    }
+  ]
+}
