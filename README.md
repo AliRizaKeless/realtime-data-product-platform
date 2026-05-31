@@ -58,7 +58,29 @@ The platform simulates a real-world scenario where data engineers are responsibl
 
 
 
-\## Project Status 
+\## CI/CD
+
+
+
+This project includes a GitHub Actions workflow that automatically validates the data pipeline on every push and pull request.
+
+
+
+The CI pipeline:
+
+\- installs project dependencies
+
+\- runs the full data pipeline
+
+\- validates the data contract
+
+
+
+A successful workflow run confirms that the pipeline is reproducible and reliable.
+
+
+
+\## Project Status
 
 &#x20;  In progress
 
