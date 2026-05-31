@@ -26,6 +26,26 @@ The platform simulates a real-world scenario where data engineers are responsibl
 
 
 
+\## Architecture
+
+
+
+Architecture documentation is available in:
+
+
+
+\- docs/architecture.md
+
+
+
+Architecture diagram:
+
+
+
+!\[Architecture](docs/images/architecture.png)
+
+
+
 \## Architecture (High-Level)
 
 \- Data Sources (API, simulated events)
