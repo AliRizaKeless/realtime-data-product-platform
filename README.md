@@ -2,6 +2,10 @@
 
 
 
+!\[Data Pipeline CI](https://github.com/AliRizaKeless/realtime-data-product-platform/actions/workflows/data-pipeline-ci.yml/badge.svg)
+
+
+
 \## Overview
 
 This project demonstrates a modern data engineering platform that combines batch and real-time data processing to deliver reliable, analytics-ready data products.
@@ -46,19 +50,25 @@ Architecture diagram:
 
 
 
-\## Architecture (High-Level)
+\### High-Level Components
 
-\- Data Sources (API, simulated events)
 
-\- Ingestion Layer (Batch + Streaming)
 
-\- Data Lake (Bronze / Silver / Gold)
+\- Data Sources (simulated order events)
 
-\- Transformation Layer (dbt)
+\- Bronze Layer (raw parquet data)
 
-\- Data Quality \& Testing
+\- Silver Layer (cleaned and validated data)
 
-\- Data Product (Analytics / Dashboard)
+\- Gold Layer (business-ready metrics)
+
+\- dbt Transformation Layer
+
+\- Data Contract Validation
+
+\- Data Quality Testing
+
+\- GitHub Actions CI/CD
 
 
 
