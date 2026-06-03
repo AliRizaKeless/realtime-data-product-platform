@@ -21,3 +21,17 @@ data/processed/
 .DS_Store
 .vscode/
 .idea/
+
+# Airflow
+airflow/logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# dbt artifacts
+ecommerce_analytics/target/
+ecommerce_analytics/logs/

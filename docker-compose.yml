@@ -1,19 +1,60 @@
 services:
-  airflow:
-    image: apache/airflow:2.10.5-python3.12
-    container_name: realtime-data-product-airflow
+  postgres:
+    image: postgres:16
+    container_name: airflow-postgres
     environment:
-      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5432:5432"
+
+  airflow-init:
+    image: apache/airflow:2.10.5-python3.12
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    command: >
+      bash -c "
+      airflow db migrate &&
+      airflow users create
+      --username admin
+      --password admin
+      --firstname Ali
+      --lastname Keles
+      --role Admin
+      --email admin@example.com
+      "
+
+  airflow-webserver:
+    image: apache/airflow:2.10.5-python3.12
+    container_name: airflow-webserver
+    depends_on:
+      - postgres
+      - airflow-init
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: sqlite:////opt/airflow/airflow.db
-      AIRFLOW__WEBSERVER__SECRET_KEY: local_dev_secret_key
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/plugins:/opt/airflow/plugins
     ports:
       - "8080:8080"
-    command: >
-      bash -c "airflow db migrate &&
-               airflow users create --username admin --password admin --firstname Ali --lastname Keles --role Admin --email admin@example.com || true &&
-               airflow webserver"
+    command: webserver
+
+  airflow-scheduler:
+    image: apache/airflow:2.10.5-python3.12
+    container_name: airflow-scheduler
+    depends_on:
+      - postgres
+      - airflow-init
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+    command: scheduler
