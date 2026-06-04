@@ -36,17 +36,25 @@ Architecture diagram:
 - dbt Transformation Layer
 - Data Contract Validation
 - Data Quality Testing
+- Airflow Orchestration
+- PostgreSQL Metadata Database
 - GitHub Actions CI/CD
+- Dashboard Consumption Layer
 
 ## Tech Stack
 
 - Python
-- pandas
-- PyArrow / Parquet
-- dbt
-- DuckDB
-- GitHub Actions
+- Pandas
+- Faker
+- PyArrow
 - SQL
+- DuckDB
+- dbt
+- Airflow
+- PostgreSQL
+- Docker
+- Docker Compose
+- GitHub Actions
 
 ## CI/CD
 
@@ -81,13 +89,66 @@ cd ecommerce_analytics
 dbt docs generate
 dbt docs serve
 
-Project Status
-
-In progress
-
 
 PowerShell:
 
 ```powershell
 notepad README.md
+
+## Pipeline Orchestration
+
+The platform is orchestrated using Apache Airflow.
+
+Current DAG flow:
+
+1. Generate Orders (Bronze)
+2. Transform Orders (Silver)
+3. Create Gold Metrics
+4. Validate Data Contract
+
+The DAG is executed through:
+
+- Airflow Scheduler
+- Airflow Webserver
+- PostgreSQL metadata database
+
+All services are containerized using Docker Compose.
+
+## Dashboard Layer
+
+Gold layer datasets can be exported to dashboard-ready CSV files.
+
+Export command:
+
+```bash
+python pipelines/export_gold_to_csv.py
+
+Supported consumers:
+
+Power BI
+Excel
+Looker Studio
+
+## Project Status
+
+Current capabilities:
+
+- End-to-End Data Pipeline
+- Medallion Architecture
+- Airflow Orchestration
+- dbt Modeling
+- Data Contracts
+- Data Quality Tests
+- CI/CD Validation
+- Dashboard Export Layer
+
+Planned:
+
+- Power BI Dashboard
+- Kafka Streaming
+- Great Expectations
+- Azure Deployment
+- Terraform Infrastructure
+
+
 
